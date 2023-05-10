@@ -1,66 +1,59 @@
-# privateGPT
-Ask questions to your documents without an internet connection, using the power of LLMs. 100% private, no data leaves your execution environment at any point. You can ingest documents and ask questions without an internet connection!
 
-Built with [LangChain](https://github.com/hwchase17/langchain) and [GPT4All](https://github.com/nomic-ai/gpt4all)
+
+# privateGPT
+İnternet bağlantısı olmadan belgelerinize sorular sorun ve LLM'lerin gücünden yararlanın. %100 özel, verileriniz hiçbir noktada yürütme ortamınızdan çıkmaz. Belgelerinizi bir internet bağlantısı olmadan içe aktarabilir ve sorular sorabilirsiniz!
+
+[LangChain](https://github.com/hwchase17/langchain) ve [GPT4All](https://github.com/nomic-ai/gpt4all) ile oluşturulmuştur.
 
 <img width="902" alt="demo" src="https://user-images.githubusercontent.com/721666/236942256-985801c9-25b9-48ef-80be-3acbb4575164.png">
 
-# Environment Setup
+# Ortam Kurulumu
 
-In order to set your environment up to run the code here, first install all requirements:
+Kodları burada çalıştırmak için önce tüm gereksinimleri yükleyin:
 
-```shell
-pip install -r requirements.txt
-```
+Ardından, 2 modeli indirin ve `./models` adlı bir klasöre yerleştirin:
+- LLM: varsayılan olarak [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) kullanılır. Farklı bir GPT4All-J uyumlu model tercih ederseniz, yalnızca indirin ve `privateGPT.py` dosyasında referans verin.
+- Gömme: varsayılan olarak [ggml-model-q4_0.bin](https://huggingface.co/Pi3141/alpaca-native-7B-ggml/resolve/397e872bf4c83f4c642317a5bf65ce84a105786e/ggml-model-q4_0.bin) kullanılır. Farklı bir uyumlu Gömme modeli tercih ederseniz, yalnızca indirin ve `privateGPT.py` ve `ingest.py` dosyalarında referans verin.
 
-Then, download the 2 models and place them in a folder called `./models`:
-- LLM: default to [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). If you prefer a different GPT4All-J compatible model, just download it and reference it in `privateGPT.py`.
-- Embedding: default to [ggml-model-q4_0.bin](https://huggingface.co/Pi3141/alpaca-native-7B-ggml/resolve/397e872bf4c83f4c642317a5bf65ce84a105786e/ggml-model-q4_0.bin). If you prefer a different compatible Embeddings model, just download it and reference it in `privateGPT.py` and `ingest.py`.
+## Test veri kümesi
+Bu depo, bir [state of the union transcript](https://github.com/imartinez/privateGPT/blob/main/source_documents/state_of_the_union.txt) örneği kullanır.
 
-## Test dataset
-This repo uses a [state of the union transcript](https://github.com/imartinez/privateGPT/blob/main/source_documents/state_of_the_union.txt) as an example.
+## Kendi veri kümenizi içe aktarmak için talimatlar
 
-## Instructions for ingesting your own dataset
+.Txt dosyanızı hazırlayın.
 
-Get your .txt file ready.
-
-Run the following command to ingest the data.
+Verileri içe aktarmak için aşağıdaki komutu çalıştırın.
 
 ```shell
 python ingest.py <path_to_your_txt_file>
 ```
 
-It will create a `db` folder containing the local vectorstore. Will take time, depending on the size of your document.
-You can ingest as many documents as you want by running `ingest`, and all will be accumulated in the local embeddings database. 
-If you want to start from scratch, delete the `db` folder.
+Yerel vektör deposunu içeren bir `db` klasörü oluşturur. Belgenizin boyutuna bağlı olarak zaman alabilirsiniz.
+`ingest` komutunu çalıştırarak istediğiniz kadar belge içe aktarabilir ve tümü yerel gömme veritabanında birikir. Sıfırdan başlamak isterseniz, `db` klasörünü silin.
 
-Note: during the ingest process no data leaves your local environment. You could ingest without an internet connection.
+Not: İçe aktarma işlemi sırasında hiçbir veri yürütme ortamınızdan çıkmaz. İnternet bağlantısı olmadan içe aktarabilirsiniz.
 
-## Ask questions to your documents, locally!
-In order to ask a question, run a command like:
+## Belgelerinize sorular sorun
 
 ```shell
 python privateGPT.py
 ```
 
-And wait for the script to require your input. 
+## ve bitirmesini bekleyin.
 
 ```shell
 > Enter a query:
 ```
 
-Hit enter. You'll need to wait 20-30 seconds (depending on your machine) while the LLM model consumes the prompt and prepares the answer. Once done, it will print the answer and the 4 sources it used as context from your documents; you can then ask another question without re-running the script, just wait for the prompt again. 
+# Enter'a basın. LLM modeli prompt'u tüketip cevabı hazırlarken 20-30 saniye beklemeniz gerekebilir (makinenize bağlı olarak). Hazır olduğunda cevabı ve belgelerinizden aldığı 4 kaynağı yazdıracak; sonra başka bir soru sorabilirsiniz, betiği yeniden çalıştırmadan sadece prompt'u bekleyin.
 
-Note: you could turn off your internet connection, and the script inference would still work. No data gets out of your local environment.
+Not: İnternet bağlantınızı kapatsanız bile betik çıkarımı hala çalışır. Veri, yerel ortamınızdan çıkmaz.
 
-Type `exit` to finish the script.
+Betiğin tamamını yerel modelleri seçerek ve `LangChain`'in gücünü kullanarak, ortamınızdan herhangi bir veri çıkarmadan ve makul performansla çalıştırabilirsiniz.
 
-# How does it work?
-Selecting the right local models and the power of `LangChain` you can run the entire pipeline locally, without any data leaving your environment, and with reasonable performance.
+- `ingest.py`, belgeyi ayrıştırmak ve `LlamaCppEmbeddings` kullanarak yerel olarak gömülü oluşturmak için `LangChain` araçlarını kullanır. Ardından, sonucu yerel bir vektör veritabanına `Chroma` vektör deposu kullanarak kaydeder.
+- `privateGPT.py`, soruları anlamak ve cevaplar oluşturmak için `GPT4All-J` temelli yerel bir LLM kullanır. Cevapların bağlamı, belgelerinizden doğru bağlam parçasını bulmak için benzerlik araması kullanarak yerel vektör deposundan çıkarılır.
+- `GPT4All-J` sarmalayıcısı, LangChain 0.0.162'de tanıtıldı.
 
-- `ingest.py` uses `LangChain` tools to parse the document and create embeddings locally using `LlamaCppEmbeddings`. It then stores the result in a local vector database using `Chroma` vector store. 
-- `privateGPT.py` uses a local LLM based on `GPT4All-J` to understand questions and create answers. The context for the answers is extracted from the local vector store using a similarity search to locate the right piece of context from the docs.
-- `GPT4All-J` wrapper was introduced in LangChain 0.0.162.
-
-# Disclaimer
-This is a test project to validate the feasibility of a fully private solution for question answering using LLMs and Vector embeddings. It is not production ready, and it is not meant to be used in production. The models selection is not optimized for performance, but for privacy; but it is possible to use different models and vectorstores to improve performance.
+# Feragatname
+LLM'ler ve Vektör gömülmeleri kullanarak tamamen özel bir soru-cevap çözümü için izlenebilirliği doğrulamak için bir test projesidir. Üretim için hazır değildir ve üretimde kullanılması amaçlanmamaktadır. Modellerin seçimi, gizlilik için optimize edilmemiş, ancak gizliliği korurken performansı artırmak için farklı modeller ve vektör deposu kullanmak mümkündür.
