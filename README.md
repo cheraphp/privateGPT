@@ -1,4 +1,4 @@
-## FOR EDUCATIONAL PURPOSES ONLY
+# FOR EDUCATIONAL PURPOSES ONLY
 
 # privateGPT
 İnternet bağlantısı olmadan belgelerinize sorular sorun ve LLM'lerin gücünden yararlanın. %100 özel, verileriniz hiçbir noktada yürütme ortamınızdan çıkmaz. Belgelerinizi bir internet bağlantısı olmadan içe aktarabilir ve sorular sorabilirsiniz!
