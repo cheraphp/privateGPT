@@ -33,19 +33,19 @@ Yerel vektör deposunu içeren bir `db` klasörü oluşturur. Belgenizin boyutun
 
 Not: İçe aktarma işlemi sırasında hiçbir veri yürütme ortamınızdan çıkmaz. İnternet bağlantısı olmadan içe aktarabilirsiniz.
 
-## Belgelerinize sorular sorun
+## Yapay zekaya sorular sorun
 
 ```shell
 python privateGPT.py
 ```
 
-## ve bitirmesini bekleyin.
+ve kodun çalışmasını bekleyin.
 
 ```shell
 > Enter a query:
 ```
 
-# Enter'a basın. LLM modeli prompt'u tüketip cevabı hazırlarken 20-30 saniye beklemeniz gerekebilir (makinenize bağlı olarak). Hazır olduğunda cevabı ve belgelerinizden aldığı 4 kaynağı yazdıracak; sonra başka bir soru sorabilirsiniz, betiği yeniden çalıştırmadan sadece prompt'u bekleyin.
+Ardından Enter'a basın. LLM modeli prompt'u tüketip cevabı hazırlarken 20-30 saniye beklemeniz gerekebilir (makinenize bağlı olarak). Hazır olduğunda cevabı ve belgelerinizden aldığı 4 kaynağı yazdıracak; sonra başka bir soru sorabilirsiniz, betiği yeniden çalıştırmadan sadece prompt'u bekleyin.
 
 Not: İnternet bağlantınızı kapatsanız bile betik çıkarımı hala çalışır. Veri, yerel ortamınızdan çıkmaz.
 
