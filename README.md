@@ -49,6 +49,8 @@ python privateGPT.py
 
 Not: İnternet bağlantınızı kapatsanız bile betik çıkarımı hala çalışır. Veri, yerel ortamınızdan çıkmaz.
 
+# Nasıl çalışır?
+
 Betiğin tamamını yerel modelleri seçerek ve `LangChain`'in gücünü kullanarak, ortamınızdan herhangi bir veri çıkarmadan ve makul performansla çalıştırabilirsiniz.
 
 - `ingest.py`, belgeyi ayrıştırmak ve `LlamaCppEmbeddings` kullanarak yerel olarak gömülü oluşturmak için `LangChain` araçlarını kullanır. Ardından, sonucu yerel bir vektör veritabanına `Chroma` vektör deposu kullanarak kaydeder.
